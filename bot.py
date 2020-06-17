@@ -1,17 +1,35 @@
 
 #bot.py
 import os
-import discord
+from discord.ext import commands
 from dotenv import load_dotenv
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_LOADOUT_TOKEN')
 
-client = discord.Client()
+bot = commands.Bot(command_prefix=':')
 
-@client.event
+@bot.event
 async def on_ready():
-    print('{client.user} has connected to Discord!')
+    print(f'{client.user} has connected to Discord!')
 
-client.run(TOKEN)
-
+    
+@bot.event
+async def on_message(message):
+    if message.author == client.user:
+        return
+    
+@bot.command(name='test', help='Test message to test testing.')
+async def test(ctx):
+    response = 'Test Works'
+    await ctx.send(response)
+    
+@bot.event
+async def on_error(event, *args, **kwargs):
+    with open('err.log', 'a') as f:
+        if event == 'on_message':
+            f.write(f'Unhandled message: {args[0]}\n')
+        else:
+            raise
+            
+bot.run(TOKEN)
