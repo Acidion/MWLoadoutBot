@@ -11,12 +11,12 @@ bot = commands.Bot(command_prefix=':')
 
 @bot.event
 async def on_ready():
-    print(f'{client.user} has connected to Discord!')
+    print(f'{bot.self} has connected to Discord!')
 
     
 @bot.event
 async def on_message(message):
-    if message.author == client.user:
+    if message.author == bot.self:
         return
     
 @bot.command(name='test', help='Test message to test testing.')
