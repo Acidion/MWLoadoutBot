@@ -11,13 +11,7 @@ bot = commands.Bot(command_prefix='$')
 
 @bot.event
 async def on_ready():
-    print('{} has connected to Discord!'.format(bot.self))
-
-    
-@bot.event
-async def on_message(message):
-    if message.author == bot.self:
-        return
+    print('{} has connected to Discord!'.format(bot.user.name))
     
 @bot.command(name='test', help='Test message to test testing.')
 async def test(ctx):
