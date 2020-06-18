@@ -1,4 +1,3 @@
-
 #bot.py
 import os
 import json
@@ -7,9 +6,20 @@ from dotenv import load_dotenv
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_LOADOUT_TOKEN')
+JSON_FILE = os.getenv('JSON_FILE_NAME')
 
 bot = commands.Bot(command_prefix='$')
 '''Declare and preload JSON file on bot load'''
+
+def loadJSON():
+    with open(JSON_FILE) as f:
+        data = json.load(f)
+    return json.loads(data)
+    
+def saveJSON():
+    with open(JSON_FILE, 'w') as f:
+        json.dump(loadouts, f)
+    loadouts = loadJSON
 
 @bot.event
 async def on_ready():
@@ -30,24 +40,43 @@ async def add(ctx, *args):
     attach3 = args[4]
     attach4 = args[5]
     attach5 = args[6]
-    loadout = {
+    temploadout = {
         "addedby":addedby,
         "loadoutName":loadoutName,
         "basegun":baseGun,
         "attachments": ( attach1, attach2, attach3, attach4, attach5)
     }
+    print(temploadout)
     """Check if loadout exists in stored loadouts for update purposes
        Add to JSON and refresh locally held array of loadouts"""
-    response = 'Loadout {} added to repository.'.format(args[0])
+    exists = False
+    response = ''
+    for l in loadouts:
+        if l["loadoutName"] == loadoutName:
+            exists = True
+    if not exists:
+        with open(JSON_FILE, 'w') as outfile:
+            response = 'Loadout {} added to repository.'.format(loadoutName)
+    else:
+        response = 'Loadout {} already exists.'.format(loadoutName)
+
     await ctx.send(resposne)
     
 @bot.command(name='deleteload', help='Remove a loadout. Usage $deleteload <name>')
 async def del(ctx, *args):
     """Check if the referenced loadout exists and if it was added by the user invoking command"""
     """Do the removal of the loadout from the json and the locally held array"""
+    loadoutName = args[1]
+    response = ''
     if ctx.author.name != loadout[index]["addedby"]:
         response = 'You can\'t remove {}, as you did not add it.'.format(args[0])
-    response = 'Loadout {} removed from repository.'.format(args[0])
+    else:
+        for idx, item in loadouts: 
+            if item["loadoutName"] == loadoutName:
+                loadouts.pop(idx)
+                response = 'Loadout {} removed from repository.'.format(args[0])
+                saveJSON
+        
     await ctx.send(response)
    
 @bot.command(name='getload', help='Gets details of requested loadout. Usage $getload <name>')
@@ -63,5 +92,7 @@ async def on_error(event, *args, **kwargs):
             f.write('Unhandled message: {}\n'.format(args[0]))
         else:
             raise
+
             
+loadouts = loadJSON()
 bot.run(TOKEN)
