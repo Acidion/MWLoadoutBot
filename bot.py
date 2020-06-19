@@ -35,8 +35,9 @@ def search(name):
         for load in loadouts:
             print("Search Function Dictionary Below")
             print(load)
-            if load["loadoutName"] == name:
-                result = True
+            if load:
+                if load["loadoutName"] == name:
+                    result = True
     return result
 
 @bot.event
