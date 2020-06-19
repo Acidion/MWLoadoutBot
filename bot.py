@@ -62,6 +62,8 @@ async def add(ctx, *args):
                 exists = True
     if not exists:
         with open(JSON_FILE, 'w') as outfile:
+            loadouts.add(temploadout)
+            saveJSON
             response = 'Loadout {} added to repository.'.format(loadoutName)
     else:
         response = 'Loadout {} already exists.'.format(loadoutName)
