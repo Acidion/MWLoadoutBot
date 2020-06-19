@@ -23,7 +23,7 @@ def loadJSON():
     except FileNotFoundError:
         return []
     
-def saveJSON():
+def saveJSON(loadouts):
     with open(JSON_FILE, 'w') as f:
         print("Saving following loadouts:" + loadouts)
         json.dump(loadouts, f)
@@ -59,13 +59,11 @@ async def add(ctx, *args):
     attach3 = args[4]
     attach4 = args[5]
     attach5 = args[6]
-    temploadout = { "loadout": [
-        { "addedby":addedby,
+    temploadout = { "addedby":addedby,
         "loadoutName":loadoutName,
         "basegun":baseGun,
-        "attachments": ( attach1, attach2, attach3, attach4, attach5) }
-        ]
-    }
+        "attachments": ( attach1, attach2, attach3, attach4, attach5) 
+        }
     print(temploadout)
 
     exists = search(loadoutName)
@@ -73,7 +71,8 @@ async def add(ctx, *args):
     
     if not exists:
         loadouts.append(temploadout)
-        saveJSON()
+        print(loadouts)
+        saveJSON(loadouts)
         response = 'Loadout {} added to repository.'.format(loadoutName)
     else:
         response = 'Loadout {} already exists.'.format(loadoutName)
