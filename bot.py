@@ -87,10 +87,10 @@ async def delete(ctx, args):
         if ctx.message.author.name != loadout["addedby"]:
             response = 'You can\'t remove {}, as you did not add it.'.format(args[0])
     if response == '':
-        for idx, item in loadouts: 
+        for item in loadouts: 
             if item != []:
-                if item["loadoutName"] == loadoutName:
-                    loadouts.pop(idx)
+                if item["loadoutName"].lower() == loadoutName.lower():
+                    loadouts.remove(item)
                     response = 'Loadout {} removed from repository.'.format(args[0])
                     saveJSON()
         
