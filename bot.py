@@ -11,6 +11,7 @@ JSON_FILE = os.getenv('JSON_FILE_NAME')
 
 bot = commands.Bot(command_prefix='$')
 '''Declare and preload JSON file on bot load'''
+loadouts
 
 def loadJSON():
     try:
