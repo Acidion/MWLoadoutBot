@@ -102,7 +102,7 @@ async def get(ctx, args):
     loadoutName = args
     for load in loadouts:
         if load["loadoutName"].lower()==loadoutName.lower():
-            response = 'Name: {0} Base Gun: {1} Added By: {2} {3}'.format(loadoutName, load["basegun"], load["addedby"], load["url"])
+            response = 'Name: {0} Base Gun: {1} Added By: {2} {3}'.format(load["loadoutName"], load["basegun"], load["addedby"], load["url"])
             break
         else:
             response = 'Loadout not found.'
