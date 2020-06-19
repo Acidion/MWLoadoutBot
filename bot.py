@@ -33,6 +33,8 @@ def search(name):
     result = False
     if loadouts:
         for load in loadouts:
+            print("Search Function Dictionary Below")
+            print(load)
             if load["loadoutName"] == name:
                 result = True
     return result
