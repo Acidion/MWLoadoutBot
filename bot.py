@@ -35,7 +35,7 @@ async def test(ctx):
 
 @bot.command(name='addload', help='Add a loadout. Usage $addload <name> <BaseGun> <attach1> <attach2> <attach3> <attach4> <attach5>')
 async def add(ctx, *args):
-    addedby = ctx.user.name
+    addedby = ctx.message.author.name
     loadoutName = args[0]
     baseGun = args[1]
     attach1 = args[2]
@@ -69,7 +69,7 @@ async def add(ctx, *args):
 async def delete(ctx, *args):
     loadoutName = args[1]
     response = ''
-    if ctx.author.name != loadout[index]["addedby"]:
+    if ctx.message.author.name != loadout[index]["addedby"]:
         response = 'You can\'t remove {}, as you did not add it.'.format(args[0])
     else:
         for idx, item in loadouts: 
