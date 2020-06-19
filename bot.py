@@ -31,7 +31,6 @@ def saveJSON():
 def search(name):
     result = False
     if loadouts:
-        print("Loadout Data: " + loadouts)
         for load in loadouts:
             print("Search Load Item: " + load)
             if load["loadoutName"] == name:
