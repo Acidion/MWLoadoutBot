@@ -26,7 +26,7 @@ def loadJSON():
 def saveJSON():
     with open(JSON_FILE, 'w') as f:
         json.dump(loadouts, f)
-    loadouts = loadJSON
+    loadouts = loadJSON()
 
 @bot.event
 async def on_ready():
@@ -62,10 +62,9 @@ async def add(ctx, *args):
             if l["loadoutName"] == loadoutName:
                 exists = True
     if not exists:
-        with open(JSON_FILE, 'w') as outfile:
-            loadouts.insert(len(loadouts), temploadout)
-            saveJSON
-            response = 'Loadout {} added to repository.'.format(loadoutName)
+        loadouts.append(temploadout)
+        saveJSON()
+        response = 'Loadout {} added to repository.'.format(loadoutName)
     else:
         response = 'Loadout {} already exists.'.format(loadoutName)
 
