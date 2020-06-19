@@ -19,17 +19,13 @@ def loadJSON():
         if mypath.stat().st_size != 0:
             with open(JSON_FILE) as f:
                 data = json.load(f)
-                print(data)
             return data
     except FileNotFoundError:
         return []
     
 def saveJSON(loadouts):
     with open(JSON_FILE, 'w') as f:
-        print("Saving following loadouts:")
-        print(loadouts)
         json.dump(loadouts, f)
-        print(json.dumps(loadouts))
     loadouts = loadJSON()
 
 def search(name):
@@ -82,8 +78,6 @@ async def delete(ctx, args):
     loadoutName = args
     response = ''
     for loadout in loadouts:
-        print("Delete Loadout")
-        print(loadout)
         if ctx.message.author.name != loadout["addedby"]:
             response = 'You can\'t remove {}, as you did not add it.'.format(args)
     if response == '':
