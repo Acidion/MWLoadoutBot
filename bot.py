@@ -41,11 +41,6 @@ def search(name):
 async def on_ready():
     print('{} has connected to Discord!'.format(bot.user.name))
     
-@bot.command(name='test', help='Test message to test testing.')
-async def test(ctx):
-    response = 'Test Works'
-    await ctx.send(response)
-
 @bot.command(name='addload', help='Add a loadout. Usage $addload <name> <BaseGun>')
 async def add(ctx, *args):
     addedby = ctx.message.author.name
