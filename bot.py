@@ -12,22 +12,32 @@ JSON_FILE = os.getenv('JSON_FILE_NAME')
 bot = commands.Bot(command_prefix='$')
 '''Declare and preload JSON file on bot load'''
 
-loadouts = []
 def loadJSON():
     try:
         mypath = Path(JSON_FILE)
         if mypath.stat().st_size != 0:
             with open(JSON_FILE) as f:
                 data = json.load(f)
-                print(data)
+                print("Loaded following Data: " + data)
             return data
     except FileNotFoundError:
         return []
     
 def saveJSON():
     with open(JSON_FILE, 'w') as f:
-        json.dumps(loadouts, f)
+        print("Saving following loadouts:" + loadouts)
+        json.dump(loadouts, f)
     loadouts = loadJSON()
+
+def search(name):
+    result = False
+    if loadouts:
+        print("Loadout Data: " + loadouts)
+        for load in loadouts:
+            print("Search Load Item: " + load)
+            if load["loadoutName"] == name:
+                result = True
+    return result
 
 @bot.event
 async def on_ready():
@@ -48,24 +58,18 @@ async def add(ctx, *args):
     attach3 = args[4]
     attach4 = args[5]
     attach5 = args[6]
-    temploadout = {
+    temploadout = { "loadout": [
         "addedby":addedby,
         "loadoutName":loadoutName,
         "basegun":baseGun,
         "attachments": ( attach1, attach2, attach3, attach4, attach5)
+        ]
     }
     print(temploadout)
 
-    exists = False
+    exists = search(loadoutName)
     response = ''
-    if loadouts:
-        print(loadouts)
-        for load in loadouts:
-            print(load)
-            l = json.load(load)
-            print(l)            
-            if l["loadoutName"] == loadoutName:
-                exists = True
+    
     if not exists:
         loadouts.append(temploadout)
         saveJSON()
@@ -79,9 +83,10 @@ async def add(ctx, *args):
 async def delete(ctx, *args):
     loadoutName = args[0]
     response = ''
-    if ctx.message.author.name != loadout[index]["addedby"]:
-        response = 'You can\'t remove {}, as you did not add it.'.format(args[0])
-    else:
+    for loadout in loadouts:
+        if ctx.message.author.name != loadout["addedby"]:
+            response = 'You can\'t remove {}, as you did not add it.'.format(args[0])
+    if response == '':
         for idx, item in loadouts: 
             if item["loadoutName"] == loadoutName:
                 loadouts.pop(idx)
@@ -102,6 +107,7 @@ async def get(ctx, args):
             response = 'Loadout not found.'
     await ctx.send(response)
              
+     
 @bot.event
 async def on_error(event, *args, **kwargs):
     with open('err.log', 'a') as f:
