@@ -110,9 +110,10 @@ async def get(ctx, args):
            
 @bot.command(name='listbuilds', help='lists the stored loadouts')
 async def listbuilds(ctx):
-    response = ''
+    lists = []
     for load in loadouts:
-        response += '{0]/{1}\n'.format(load["loadoutName"], load["basegun"])
+        lists.append('{0}/{1}'.format(load["loadoutName"], load["basegun"]))
+    response = "\n".join(lists)
     await ctx.send(response)
      
 @bot.event
