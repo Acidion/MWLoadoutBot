@@ -92,7 +92,7 @@ async def delete(ctx, args):
                 if item["loadoutName"].lower() == loadoutName.lower():
                     loadouts.remove(item)
                     response = 'Loadout {} removed from repository.'.format(args[0])
-                    saveJSON()
+                    saveJSON(loadouts)
         
     await ctx.send(response)
    
