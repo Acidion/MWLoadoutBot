@@ -18,7 +18,6 @@ def loadJSON():
         if mypath.stat().st_size != 0:
             with open(JSON_FILE) as f:
                 data = json.load(f)
-                print("Loaded following Data: " + data)
             return data
     except FileNotFoundError:
         return []
