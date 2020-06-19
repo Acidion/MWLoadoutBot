@@ -55,8 +55,8 @@ async def add(ctx, *args):
     addedby = ctx.message.author.name
     loadoutName = args[0]
     try:
-        print(ctx.message.embeds)
-        url=ctx.message.embeds[0].url
+        print(ctx.message.attachments)
+        url=ctx.message.attachments[0].url
     except IndexError:
         url=''
     temploadout = { "addedby":addedby,
