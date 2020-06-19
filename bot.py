@@ -35,12 +35,9 @@ def saveJSON(loadouts):
 def search(name):
     result = False
     if loadouts:
-        print(loadouts)
         for load in loadouts:
-            print("Search Function Dictionary Below")
-            print(load)
             if load != []:
-                if load["loadoutName"] == name:
+                if load["loadoutName"].lower() == name.lower():
                     result = True
     return result
 
@@ -104,13 +101,9 @@ async def get(ctx, args):
     """Look through list of loadouts for user argument and return the values if found"""
     loadoutName = args
     for load in loadouts:
-        print(loadoutName)
-        print("Get Loadout")
-        print(load)
-        print(load["loadoutName"])
-        if load["loadoutName"]==loadoutName:
+        if load["loadoutName"].lower()==loadoutName.lower():
             response = 'Name: {0} Base Gun: {1} Added By: {2} {3}'.format(loadoutName, load["basegun"], load["addedby"], load["url"])
-            print(response)
+            break
         else:
             response = 'Loadout not found.'
     await ctx.send(response)
