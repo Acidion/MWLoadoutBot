@@ -30,7 +30,7 @@ async def test(ctx):
     response = 'Test Works'
     await ctx.send(response)
 
-@bot.command(name='addload', help='Add a loadout. Usage $addload <name> <BaseGun> <attach1> <attach2> <attach3> <attach4> <attach5>'
+@bot.command(name='addload', help='Add a loadout. Usage $addload <name> <BaseGun> <attach1> <attach2> <attach3> <attach4> <attach5>')
 async def add(ctx, *args):
     addedby = ctx.user.name
     loadoutName = args[0]
@@ -47,8 +47,7 @@ async def add(ctx, *args):
         "attachments": ( attach1, attach2, attach3, attach4, attach5)
     }
     print(temploadout)
-    """Check if loadout exists in stored loadouts for update purposes
-       Add to JSON and refresh locally held array of loadouts"""
+
     exists = False
     response = ''
     for l in loadouts:
@@ -63,9 +62,7 @@ async def add(ctx, *args):
     await ctx.send(resposne)
     
 @bot.command(name='deleteload', help='Remove a loadout. Usage $deleteload <name>')
-async def del(ctx, *args):
-    """Check if the referenced loadout exists and if it was added by the user invoking command"""
-    """Do the removal of the loadout from the json and the locally held array"""
+async def delete(ctx, *args):
     loadoutName = args[1]
     response = ''
     if ctx.author.name != loadout[index]["addedby"]:
