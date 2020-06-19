@@ -63,7 +63,7 @@ async def add(ctx, *args):
     else:
         response = 'Loadout {} already exists.'.format(loadoutName)
 
-    await ctx.send(resposne)
+    await ctx.send(response)
     
 @bot.command(name='deleteload', help='Remove a loadout. Usage $deleteload <name>')
 async def delete(ctx, *args):
