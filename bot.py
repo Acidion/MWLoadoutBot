@@ -12,9 +12,12 @@ bot = commands.Bot(command_prefix='$')
 '''Declare and preload JSON file on bot load'''
 
 def loadJSON():
-    with open(JSON_FILE) as f:
-        data = json.load(f)
-    return json.loads(data)
+    try:
+        with open(JSON_FILE) as f:
+            data = json.load(f)
+        return json.loads(data)
+    except FileNotFoundError:
+        pass
     
 def saveJSON():
     with open(JSON_FILE, 'w') as f:
@@ -77,7 +80,7 @@ async def delete(ctx, *args):
     await ctx.send(response)
    
 @bot.command(name='getload', help='Gets details of requested loadout. Usage $getload <name>')
-aync def get(ctx, args):
+async def get(ctx, args):
     """Look through list of loadouts for user argument and return the values if found"""
     response = 'Loadout not found.'
     await ctx.send(response)
