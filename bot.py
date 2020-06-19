@@ -37,6 +37,9 @@ def search(name):
                     result = True
     return result
 
+def isSameUser(ctx, user2)
+    return ctx.message.author.name == user2
+
 @bot.event
 async def on_ready():
     print('{} has connected to Discord!'.format(bot.user.name))
@@ -73,7 +76,7 @@ async def delete(ctx, args):
     loadoutName = args
     response = ''
     for loadout in loadouts:
-        if ctx.message.author.name != loadout["addedby"]:
+        if not isSameUser(ctx, loadout["addedby"]):
             response = 'You can\'t remove {}, as you did not add it.'.format(args)
     if response == '':
         for item in loadouts: 
@@ -84,17 +87,40 @@ async def delete(ctx, args):
                     saveJSON(loadouts)
         
     await ctx.send(response)
-   
+@bot.command(name='updateload', help='Updates a loadout. usage $updateload <loadName> <baseGun>')
+async def updateLoad(ctx, *args):
+    loadoutName = args[0]
+    basegun = args[1]
+    response = ''
+    if not loadouts:
+        response = 'There are no loadouts to update.'
+    else:
+        for load in loadouts:
+            if load["loadoutName"].lower() == loadoutName.lower():
+                if not isSameUser(ctx, load["addedby"]):
+                    response = 'You can\'t update {}, as you are not the author.'.format(loadoutName)
+                else:
+                    load["basegun"] = basegun
+                    load["url"] = ctx.message.attachments.url
+                    saveJSON()
+                    response = 'Loadout {} has been updated.'.format(loadoutName)
+                    break
+            else:
+                response = 'Loadout {} not found for updating.'.format(loadoutName)
+
 @bot.command(name='getload', help='Gets details of requested loadout. Usage $getload <name>')
 async def get(ctx, args):
     """Look through list of loadouts for user argument and return the values if found"""
     loadoutName = args
-    for load in loadouts:
-        if load["loadoutName"].lower()==loadoutName.lower():
-            response = 'Name: {0} Base Gun: {1} Added By: {2} {3}'.format(load["loadoutName"], load["basegun"], load["addedby"], load["url"])
-            break
-        else:
-            response = 'Loadout not found.'
+    if not loadouts:
+        response = 'There are no loadouts currently saved.'
+    else:
+        for load in loadouts:
+            if load["loadoutName"].lower()==loadoutName.lower():
+                response = 'Name: {0} Base Gun: {1} Added By: {2} {3}'.format(load["loadoutName"], load["basegun"], load["addedby"], load["url"])
+                break
+            else:
+                response = 'Loadout not found.'
     await ctx.send(response)
            
 @bot.command(name='listbuilds', help='lists the stored loadouts')
