@@ -28,6 +28,7 @@ def saveJSON(loadouts):
         print("Saving following loadouts:")
         print(loadouts)
         json.dump(loadouts, f)
+        print(json.dumps(loadouts))
     loadouts = loadJSON()
 
 def search(name):
@@ -106,12 +107,12 @@ async def get(ctx, args):
         print(loadoutName)
         print("Get Loadout")
         print(load)
-        if load != []:
-            if load["loadoutName"]==loadoutName:
-                response = 'Name: {0} Base Gun: {1} Added By: {2} {3}'.format(loadoutName, load["basegun"], load["addedby"], load["url"])
-                print(response)
-            else:
-                response = 'Loadout not found.'
+        print(load["loadoutName"])
+        if load["loadoutName"]==loadoutName:
+            response = 'Name: {0} Base Gun: {1} Added By: {2} {3}'.format(loadoutName, load["basegun"], load["addedby"], load["url"])
+            print(response)
+        else:
+            response = 'Loadout not found.'
     await ctx.send(response)
              
      
