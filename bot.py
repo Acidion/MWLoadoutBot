@@ -50,29 +50,25 @@ async def test(ctx):
     response = 'Test Works'
     await ctx.send(response)
 
-@bot.command(name='addload', help='Add a loadout.\n Usage $addload <name> <BaseGun> <attach1> <attach2> <attach3> <attach4> <attach5>')
+@bot.command(name='addload', help='Add a loadout. Usage $addload <name> <BaseGun>')
 async def add(ctx, *args):
     addedby = ctx.message.author.name
     loadoutName = args[0]
-    baseGun = args[1]
-    attach1 = args[2]
-    attach2 = args[3]
-    attach3 = args[4]
-    attach4 = args[5]
-    attach5 = args[6]
+    try:
+        url=ctx.message.attachments[0]['url']
+    except IndexError:
+        url=''
     temploadout = { "addedby":addedby,
         "loadoutName":loadoutName,
         "basegun":baseGun,
-        "attachments": ( attach1, attach2, attach3, attach4, attach5) 
+        "url": url
         }
-    print(temploadout)
 
     exists = search(loadoutName)
     response = ''
     
     if not exists:
         loadouts.append(temploadout)
-        print(loadouts)
         saveJSON(loadouts)
         response = 'Loadout {} added to repository.'.format(loadoutName)
     else:
@@ -104,11 +100,12 @@ async def get(ctx, args):
     """Look through list of loadouts for user argument and return the values if found"""
     loadoutName = args[0]
     for load in loadouts:
+        print(loadoutName)
         print("Get Loadout")
         print(load)
         if load != []:
             if load["loadoutName"]==loadoutName:
-                response = 'Name: {0} Base Gun: {1} Attachments: {2} {3} {4} {5} {6} Added By: {7}'.format(loadoutName, load["baseGun"], load["attachments"][0], load["attachments"][1], load["attachments"][2], load["attachments"][3], load["attachments"][4], load["addedBy"])
+                response = 'Name: {0} Base Gun: {1} Added By: {2} {3}'.format(loadoutName, load["baseGun"], load["addedBy"], load["url"])
                 print(response)
             else:
                 response = 'Loadout not found.'
