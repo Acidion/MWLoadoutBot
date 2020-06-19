@@ -59,7 +59,6 @@ async def add(ctx, *args):
     loadoutName = args[0]
     baseGun = args[1]
     try:
-        print(ctx.message.attachments)
         url=ctx.message.attachments[0].url
     except IndexError:
         url=''
@@ -126,7 +125,7 @@ async def on_error(event, *args, **kwargs):
             raise
 
             
-loadouts.append(loadJSON())
+loadouts = loadJSON()
 if loadouts[0] == []:
     loadouts.pop(0)
 bot.run(TOKEN)
