@@ -38,7 +38,7 @@ def search(name):
             print("Search Function Dictionary Below")
             print(load)
             if load != []:
-                if load[1]["loadoutName"] == name:
+                if load["loadoutName"] == name:
                     result = True
     return result
 
@@ -91,7 +91,7 @@ async def delete(ctx, args):
     if response == '':
         for idx, item in loadouts: 
             if item != []:
-                if item[1]["loadoutName"] == loadoutName:
+                if item["loadoutName"] == loadoutName:
                     loadouts.pop(idx)
                     response = 'Loadout {} removed from repository.'.format(args[0])
                     saveJSON()
@@ -107,8 +107,8 @@ async def get(ctx, args):
         print("Get Loadout")
         print(load)
         if load != []:
-            if load[1]["loadoutName"]==loadoutName:
-                response = 'Name: {0} Base Gun: {1} Added By: {2} {3}'.format(loadoutName, load[1]["baseGun"], load[1]["addedBy"], load[1]["url"])
+            if load["loadoutName"]==loadoutName:
+                response = 'Name: {0} Base Gun: {1} Added By: {2} {3}'.format(loadoutName, load["baseGun"], load["addedBy"], load["url"])
                 print(response)
             else:
                 response = 'Loadout not found.'
