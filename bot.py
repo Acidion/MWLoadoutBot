@@ -11,7 +11,7 @@ JSON_FILE = os.getenv('JSON_FILE_NAME')
 
 bot = commands.Bot(command_prefix='$')
 '''Declare and preload JSON file on bot load'''
-loadouts
+loadouts = []
 
 def loadJSON():
     try:
@@ -125,4 +125,6 @@ async def on_error(event, *args, **kwargs):
 
             
 loadouts.append(loadJSON())
+if loadouts[0] == []:
+    loadouts.pop[0]
 bot.run(TOKEN)
