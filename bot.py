@@ -19,13 +19,13 @@ def loadJSON():
         if mypath.stat().st_size != 0:
             with open(JSON_FILE) as f:
                 data = json.load(f)
-            return json.loads(data)
+            return data
     except FileNotFoundError:
         return []
     
 def saveJSON():
     with open(JSON_FILE, 'w') as f:
-        json.dump(loadouts, f)
+        json.dumps(loadouts, f)
     loadouts = loadJSON()
 
 @bot.event
