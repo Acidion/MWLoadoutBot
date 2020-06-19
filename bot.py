@@ -79,8 +79,8 @@ async def add(ctx, *args):
     await ctx.send(response)
     
 @bot.command(name='deleteload', help='Remove a loadout. Usage $deleteload <name>')
-async def delete(ctx, *args):
-    loadoutName = args[0]
+async def delete(ctx, args):
+    loadoutName = args
     response = ''
     for loadout in loadouts:
         print("Delete Loadout")
@@ -100,7 +100,7 @@ async def delete(ctx, *args):
 @bot.command(name='getload', help='Gets details of requested loadout. Usage $getload <name>')
 async def get(ctx, args):
     """Look through list of loadouts for user argument and return the values if found"""
-    loadoutName = args[0]
+    loadoutName = args
     for load in loadouts:
         print(loadoutName)
         print("Get Loadout")
