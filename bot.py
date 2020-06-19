@@ -107,7 +107,13 @@ async def get(ctx, args):
         else:
             response = 'Loadout not found.'
     await ctx.send(response)
-             
+           
+@bot.command(name='listbuilds', help='lists the stored loadouts')
+async def listbuilds(ctx):
+    response = ''
+    for load in loadouts:
+        response += '{0]/{1}\n'.format(load["loadoutName"], load["basegun"]
+    await ctx.send(response)
      
 @bot.event
 async def on_error(event, *args, **kwargs):
