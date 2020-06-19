@@ -85,6 +85,8 @@ async def delete(ctx, *args):
     loadoutName = args[0]
     response = ''
     for loadout in loadouts:
+        print("Delete Loadout")
+        print(loadout)
         if ctx.message.author.name != loadout["addedby"]:
             response = 'You can\'t remove {}, as you did not add it.'.format(args[0])
     if response == '':
@@ -101,6 +103,8 @@ async def get(ctx, args):
     """Look through list of loadouts for user argument and return the values if found"""
     loadoutName = args[0]
     for load in loadouts:
+        print("Get Loadout")
+        print(load)
         if load["loadoutName"]==loadoutName:
             response = 'Name: {0} Base Gun: {1} Attachments: {2} {3} {4} {5} {6} Added By: {7}'.format(loadoutName, load["baseGun"], load["attachments"][0], load["attachments"][1], load["attachments"][2], load["attachments"][3], load["attachments"][4], load["addedBy"])
             print(response)
