@@ -59,10 +59,10 @@ async def add(ctx, *args):
     attach4 = args[5]
     attach5 = args[6]
     temploadout = { "loadout": [
-        "addedby":addedby,
+        { "addedby":addedby,
         "loadoutName":loadoutName,
         "basegun":baseGun,
-        "attachments": ( attach1, attach2, attach3, attach4, attach5)
+        "attachments": ( attach1, attach2, attach3, attach4, attach5) }
         ]
     }
     print(temploadout)
