@@ -37,7 +37,7 @@ async def test(ctx):
     response = 'Test Works'
     await ctx.send(response)
 
-@bot.command(name='addload', help='Add a loadout. Usage $addload <name> <BaseGun> <attach1> <attach2> <attach3> <attach4> <attach5>')
+@bot.command(name='addload', help='Add a loadout.\n Usage $addload <name> <BaseGun> <attach1> <attach2> <attach3> <attach4> <attach5>')
 async def add(ctx, *args):
     addedby = ctx.message.author.name
     loadoutName = args[0]
@@ -58,7 +58,10 @@ async def add(ctx, *args):
     exists = False
     response = ''
     if loadouts:
-        for l in loadouts:
+        for load in loadouts:
+            print(load)
+            l = json.load(load)
+            print(l)            
             if l["loadoutName"] == loadoutName:
                 exists = True
     if not exists:
