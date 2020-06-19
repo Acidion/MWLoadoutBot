@@ -126,5 +126,5 @@ async def on_error(event, *args, **kwargs):
             
 loadouts.append(loadJSON())
 if loadouts[0] == []:
-    loadouts.pop[0]
+    loadouts.pop(0)
 bot.run(TOKEN)
