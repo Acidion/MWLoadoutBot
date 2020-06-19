@@ -70,7 +70,7 @@ async def add(ctx, *args):
     
 @bot.command(name='deleteload', help='Remove a loadout. Usage $deleteload <name>')
 async def delete(ctx, *args):
-    loadoutName = args[1]
+    loadoutName = args[0]
     response = ''
     if ctx.message.author.name != loadout[index]["addedby"]:
         response = 'You can\'t remove {}, as you did not add it.'.format(args[0])
@@ -86,7 +86,13 @@ async def delete(ctx, *args):
 @bot.command(name='getload', help='Gets details of requested loadout. Usage $getload <name>')
 async def get(ctx, args):
     """Look through list of loadouts for user argument and return the values if found"""
-    response = 'Loadout not found.'
+    loadoutName = args[0]
+    for load in loadouts:
+        if load["loadoutName"]==loadoutName:
+            response = 'Name: {0} Base Gun: {1} Attachments: {2} {3} {4} {5} {6} Added By: {7}'.format(loadoutName, load["baseGun"], load["attachments"][0], load["attachments"][1], load["attachments"][2], load["attachments"][3], load["attachments"][4], load["addedBy"])
+            print(response)
+        else:
+            response = 'Loadout not found.'
     await ctx.send(response)
              
 @bot.event
