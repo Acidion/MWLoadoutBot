@@ -25,7 +25,8 @@ def loadJSON():
     
 def saveJSON(loadouts):
     with open(JSON_FILE, 'w') as f:
-        print("Saving following loadouts:" + loadouts)
+        print("Saving following loadouts:")
+        print(loadouts)
         json.dump(loadouts, f)
     loadouts = loadJSON()
 
