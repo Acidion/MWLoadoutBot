@@ -108,7 +108,7 @@ async def get(ctx, args):
         print(load)
         if load != []:
             if load[1]["loadoutName"]==loadoutName:
-                response = 'Name: {0} Base Gun: {1} Added By: {2} {3}'.format(loadoutName, load["baseGun"], load["addedBy"], load["url"])
+                response = 'Name: {0} Base Gun: {1} Added By: {2} {3}'.format(loadoutName, load[1]["baseGun"], load[1]["addedBy"], load[1]["url"])
                 print(response)
             else:
                 response = 'Loadout not found.'
