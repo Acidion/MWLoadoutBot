@@ -3,7 +3,7 @@ import os
 import json
 from discord.ext import commands
 from dotenv import load_dotenv
-from pathlib import path
+from pathlib import Path
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_LOADOUT_TOKEN')
