@@ -3,6 +3,7 @@ import os
 import json
 from discord.ext import commands
 from dotenv import load_dotenv
+from pathlib import path
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_LOADOUT_TOKEN')
@@ -13,9 +14,11 @@ bot = commands.Bot(command_prefix='$')
 
 def loadJSON():
     try:
-        with open(JSON_FILE) as f:
-            data = json.load(f)
-        return json.loads(data)
+        mypath = Path(JSON_FILE)
+        if mypath.stat().st_size != 0:
+            with open(JSON_FILE) as f:
+                data = json.load(f)
+            return json.loads(data)
     except FileNotFoundError:
         return []
     
