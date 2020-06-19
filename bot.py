@@ -19,6 +19,7 @@ def loadJSON():
         if mypath.stat().st_size != 0:
             with open(JSON_FILE) as f:
                 data = json.load(f)
+                print(data)
             return data
     except FileNotFoundError:
         return []
@@ -58,6 +59,7 @@ async def add(ctx, *args):
     exists = False
     response = ''
     if loadouts:
+        print(loadouts)
         for load in loadouts:
             print(load)
             l = json.load(load)
