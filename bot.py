@@ -36,7 +36,7 @@ def search(name):
         for load in loadouts:
             print("Search Function Dictionary Below")
             print(load)
-            if load:
+            if load != []:
                 if load["loadoutName"] == name:
                     result = True
     return result
@@ -91,10 +91,11 @@ async def delete(ctx, *args):
             response = 'You can\'t remove {}, as you did not add it.'.format(args[0])
     if response == '':
         for idx, item in loadouts: 
-            if item["loadoutName"] == loadoutName:
-                loadouts.pop(idx)
-                response = 'Loadout {} removed from repository.'.format(args[0])
-                saveJSON
+            if item != []:
+                if item["loadoutName"] == loadoutName:
+                    loadouts.pop(idx)
+                    response = 'Loadout {} removed from repository.'.format(args[0])
+                    saveJSON()
         
     await ctx.send(response)
    
@@ -105,11 +106,12 @@ async def get(ctx, args):
     for load in loadouts:
         print("Get Loadout")
         print(load)
-        if load["loadoutName"]==loadoutName:
-            response = 'Name: {0} Base Gun: {1} Attachments: {2} {3} {4} {5} {6} Added By: {7}'.format(loadoutName, load["baseGun"], load["attachments"][0], load["attachments"][1], load["attachments"][2], load["attachments"][3], load["attachments"][4], load["addedBy"])
-            print(response)
-        else:
-            response = 'Loadout not found.'
+        if load != []:
+            if load["loadoutName"]==loadoutName:
+                response = 'Name: {0} Base Gun: {1} Attachments: {2} {3} {4} {5} {6} Added By: {7}'.format(loadoutName, load["baseGun"], load["attachments"][0], load["attachments"][1], load["attachments"][2], load["attachments"][3], load["attachments"][4], load["addedBy"])
+                print(response)
+            else:
+                response = 'Loadout not found.'
     await ctx.send(response)
              
      
