@@ -17,7 +17,7 @@ def loadJSON():
             data = json.load(f)
         return json.loads(data)
     except FileNotFoundError:
-        pass
+        return []
     
 def saveJSON():
     with open(JSON_FILE, 'w') as f:
@@ -53,9 +53,10 @@ async def add(ctx, *args):
 
     exists = False
     response = ''
-    for l in loadouts:
-        if l["loadoutName"] == loadoutName:
-            exists = True
+    if loadouts:
+        for l in loadouts:
+            if l["loadoutName"] == loadoutName:
+                exists = True
     if not exists:
         with open(JSON_FILE, 'w') as outfile:
             response = 'Loadout {} added to repository.'.format(loadoutName)
